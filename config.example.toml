@@ -1,0 +1,26 @@
+TOKEN = ""
+owner_ids = []
+owner_blacklist_bypass = 0
+zne_invite = "https://discord.gg/4pQzcZxVXK"
+[server]
+main_server = 0
+verified_role_id = 0
+
+[channels]
+log_channel_id = 0
+
+[messages]
+og_msg = """
+# OWNED 
+-# @everyone @here
+\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n
+\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n
+\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n
+\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n
+https://discord.gg/4pQzcZxVXK
+"""
+
+[api]
+url = ""
+
+secret = ""

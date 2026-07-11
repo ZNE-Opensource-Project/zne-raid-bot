@@ -1,0 +1,7 @@
+discord.py[speed]
+asyncio
+lmdb
+requests
+Pillow
+psutil
+aiohttp
