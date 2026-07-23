@@ -13,7 +13,7 @@
 - **Raid** — Launch mass spam raids via interactive button panels
 - **Interaction Raid** — Farm interactions automatically with smart clickers
 - **Spam / File Spam** — Send custom messages or files on repeat
-- **Thug** — Animated raid panels
+- **Thug** — Gay Porn spam cuz why not
 - **Fake Nitro** — Deploy fake nitro giveaways and hoaxes
 - **Fake Giveaway** — Host counterfeit giveaways
 - **Ghost** — Ghost mention and ghost ping tools
