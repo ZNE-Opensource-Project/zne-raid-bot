@@ -10,7 +10,6 @@ from PIL import Image, ImageDraw, ImageOps, ImageFont
 from datetime import datetime
 
 from core.utils.helpers import log_command
-from core.utils.constants import CROSS, LOADING, CHECKMARK
 from core.views import FakeNitroView, make_fake_giveaway
 
 
@@ -79,7 +78,7 @@ class FakeCog(commands.Cog):
         try:
             user = await self.bot.fetch_user(int(user_id))
         except (ValueError, discord.NotFound):
-            await interaction.followup.send(f"{CROSS} Invalid user ID", ephemeral=True)
+            await interaction.followup.deny("Invalid user ID", ephemeral=True)
             return
 
         username = user.display_name

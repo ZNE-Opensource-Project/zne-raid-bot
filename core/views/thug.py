@@ -1,8 +1,8 @@
+import os
 import asyncio
 import random
 import aiohttp
 import discord
-from core.utils.constants import CROSS
 from core.utils.helpers import send_message_http, ZNE_INVITE
 
 def load_gifs() -> list[str]:
@@ -37,7 +37,7 @@ class ThugView(discord.ui.LayoutView):
             gifs = load_gifs()
             if len(gifs) < 3:
 
-                await interaction.followup.send(f"{CROSS} ERROR `could not load gifs from thug.txt, it has less than 3 gifs!`", ephemeral=True)
+                await interaction.followup.deny("could not load gifs from gifs.txt, it has less than 3 gifs!", ephemeral=True)
                 return False
 
             app_id = interaction.client.application_id

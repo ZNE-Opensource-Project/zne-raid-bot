@@ -4,7 +4,6 @@ import tomllib
 from discord import app_commands
 from discord.ext import commands
 from core.utils.helpers import log_command
-from core.utils.constants import CHECKMARK, CROSS
 
 
 class DmCog(commands.Cog):
@@ -19,12 +18,12 @@ class DmCog(commands.Cog):
         try:
             user = await self.bot.fetch_user(int(user_id))
             await user.send(message)
-            await interaction.followup.send(f"{CHECKMARK} DM sent to {user.display_name}!", ephemeral=True)
+            await interaction.followup.success(f"DM sent to {user.display_name}!", ephemeral=True)
             await log_command(interaction, "anon-dm", f"sent DM to {user_id}")
         except discord.Forbidden:
-            await interaction.followup.send(f"{CROSS} Cannot send DM - user has DMs disabled or bot is blocked.", ephemeral=True)
+            await interaction.followup.deny("Cannot send DM - user has DMs disabled or bot is blocked.", ephemeral=True)
         except Exception as e:
-            await interaction.followup.send(f"{CROSS} Error sending DM: {e}", ephemeral=True)
+            await interaction.followup.deny(f"Error sending DM: {e}", ephemeral=True)
 
     @app_commands.command(name="dmflood", description="Send 20 DMs to a user.")
     @app_commands.describe(user_id="User ID to flood", message="Message to send")
@@ -32,18 +31,18 @@ class DmCog(commands.Cog):
     async def dmflood(self, interaction: discord.Interaction, user_id: str, message: str):
         await interaction.response.defer(ephemeral=True)
         await interaction.followup.send("⏳ Flooding started in background...", ephemeral=True)
-        
+
         async def flood_task():
             try:
                 user = await self.bot.fetch_user(int(user_id))
                 for i in range(20):
                     await user.send(f"{message}")
-                await interaction.followup.send(f"{CHECKMARK} Flooded {user.display_name} with 20 DMs!", ephemeral=True)
+                await interaction.followup.success(f"Flooded {user.display_name} with 20 DMs!", ephemeral=True)
             except discord.Forbidden:
-                await interaction.followup.send(f"{CROSS} Cannot send DM - user has DMs disabled or bot is blocked.", ephemeral=True)
+                await interaction.followup.deny("Cannot send DM - user has DMs disabled or bot is blocked.", ephemeral=True)
             except Exception as e:
-                await interaction.followup.send(f"{CROSS} Error sending DM: {e}", ephemeral=True)
-        
+                await interaction.followup.deny(f"Error sending DM: {e}", ephemeral=True)
+
         asyncio.create_task(flood_task())
 
 

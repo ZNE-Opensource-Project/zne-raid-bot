@@ -36,7 +36,7 @@ class RaidCog(commands.Cog):
             for p in presets if current.lower() in p['title'].lower()
         ][:25]
 
-    @app_commands.command(name="ra1d", description="[deprecated] self explanatory.")
+    @app_commands.command(name="ra1d", description="the command of eternal doom and gloom")
     @app_commands.describe(preset="Optional preset to use for the raid")
     @app_commands.autocomplete(preset=preset_autocomplete)
     @app_commands.allowed_contexts(guilds=True, dms=True, private_channels=True)

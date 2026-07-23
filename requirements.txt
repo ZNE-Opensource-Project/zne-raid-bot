@@ -4,4 +4,4 @@ lmdb
 requests
 Pillow
 psutil
-aiohttp
+aiohttp 

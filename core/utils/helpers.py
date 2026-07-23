@@ -54,7 +54,7 @@ def _default_leaderboard_url() -> str:
 API_LEADERBOARD_URL = API_CONFIG.get("leaderboard_url", _default_leaderboard_url())
 API_LEADERBOARD_SECRET = API_CONFIG.get("leaderboard_secret", API_SECRET)
 
-api_logger = logging.getLogger(__name__)
+api_logger = logging.getLogger("zneraid.api")
 
 
 async def post_commands_to_api(bot: commands.Bot):
@@ -139,6 +139,8 @@ async def post_leaderboard_to_api(bot: commands.Bot):
             "userid": str(user_id),
             "total_commands": total_commands,
             "commands": command_counts,
+            "display_name": entry.get("display_name"),
+            "avatar_url": entry.get("avatar_url"),
         })
 
     payload = {

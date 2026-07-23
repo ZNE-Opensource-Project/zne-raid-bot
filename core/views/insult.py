@@ -1,3 +1,4 @@
+import os
 import asyncio
 import aiohttp
 import discord
@@ -38,7 +39,7 @@ def make_insult_panel(user: discord.User, delay: int = 0):
 
                 insults = load_insults()
                 if len(insults) < 5:
-                    await interaction.followup.send("ERROR `insults.txt must contain at least 5 insults!`", ephemeral=True)
+                    await interaction.followup.deny("insults.txt must contain at least 5 insults!", ephemeral=True)
                     return False
 
                 app_id = interaction.client.application_id

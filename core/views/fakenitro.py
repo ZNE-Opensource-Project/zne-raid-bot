@@ -6,6 +6,12 @@ from core.utils.helpers import send_message_http, ZNE_INVITE
 class FakeNitroView(discord.ui.LayoutView):
     text_display1 = discord.ui.TextDisplay(content="You’re awesome, just like this gift. Enjoy!")
     
+    claim_button = discord.ui.Button(
+        label="Claim",
+        style=discord.ButtonStyle.success,
+        custom_id="fake_nitro_claim",
+    )
+
     container1 = discord.ui.Container(
         discord.ui.Section(
             discord.ui.TextDisplay(content="## You got a promotion code!\nThis gift link is a promotion code.\n\n-# Click the button below to claim it"),
@@ -13,7 +19,11 @@ class FakeNitroView(discord.ui.LayoutView):
                 media="https://cdn3.emoji.gg/emojis/7496-payments-nitro.gif",
             ),
         ),
+        discord.ui.ActionRow(claim_button),
     )
+
+    async def claim_button_callback(self, interaction: discord.Interaction) -> None:
+        pass
 
     async def interaction_check(self, interaction: discord.Interaction) -> bool:
         if interaction.data.get("custom_id") == "fake_nitro_claim":

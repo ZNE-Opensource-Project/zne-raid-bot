@@ -84,7 +84,7 @@ def make_farm_panel(user_id: int, token_count: int = 0, preset_content: str = No
 
             if cid == "25bc77ecdea348afe7d2a759bcb1a344":
                 if uid not in user_farm_tokens or len(user_farm_tokens[uid]) == 0:
-                    await interaction.response.send_message("You don't have any stored tokens! Farm some tokens first.", ephemeral=True)
+                    await interaction.response.deny("You don't have any stored tokens! Farm some tokens first.", ephemeral=True)
                     return False
 
                 await interaction.response.defer()

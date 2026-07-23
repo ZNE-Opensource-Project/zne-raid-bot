@@ -3,9 +3,13 @@ import json
 import logging
 import os
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger("zneraid.leaderboard")
 
 LEADERBOARD_PATH = os.path.abspath(os.path.join("data", "leaderboard.json"))
+
+
+RESERVED_KEYS = {"userid", "user_id", "id", "total_commands"}
+STRING_KEYS = {"display_name", "avatar_url"}
 
 
 def _to_int(value) -> int:
@@ -19,9 +23,9 @@ def _normalize_entry(entry: dict) -> dict:
     normalized = {"total_commands": _to_int(entry.get("total_commands", 0))}
 
     for key, value in entry.items():
-        if key in {"userid", "user_id", "id", "total_commands"}:
+        if key in RESERVED_KEYS:
             continue
-        normalized[key] = _to_int(value)
+        normalized[key] = value if key in STRING_KEYS else _to_int(value)
 
     return normalized
 
@@ -30,9 +34,9 @@ def _entry_to_row(user_id: str, entry: dict) -> dict:
     row = {"userid": str(user_id), "total_commands": _to_int(entry.get("total_commands", 0))}
 
     for key, value in entry.items():
-        if key in {"userid", "user_id", "id", "total_commands"}:
+        if key in RESERVED_KEYS:
             continue
-        row[key] = _to_int(value)
+        row[key] = value if key in STRING_KEYS else _to_int(value)
 
     return row
 
@@ -112,7 +116,7 @@ def save_leaderboard(data: dict, global_total: int):
     os.replace(tmp_path, LEADERBOARD_PATH)
 
 
-async def track_command(user_id: str, command_name: str):
+async def track_command(user_id: str, command_name: str, display_name: str | None = None, avatar_url: str | None = None):
     data, global_total = load_leaderboard()
     user_id = str(user_id)
     command_name = str(command_name)
@@ -120,6 +124,11 @@ async def track_command(user_id: str, command_name: str):
     entry = data.setdefault(user_id, {"total_commands": 0})
     entry["total_commands"] = _to_int(entry.get("total_commands", 0)) + 1
     entry[command_name] = _to_int(entry.get(command_name, 0)) + 1
+
+    if display_name is not None:
+        entry["display_name"] = str(display_name)
+    if avatar_url is not None:
+        entry["avatar_url"] = str(avatar_url)
 
     global_total += 1
     await asyncio.to_thread(save_leaderboard, data, global_total)

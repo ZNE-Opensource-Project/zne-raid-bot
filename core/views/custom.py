@@ -7,7 +7,6 @@ from core.utils.db import (
     save_user_preset,
     delete_user_preset
 )
-from core.utils.constants import CHECKMARK, CROSS
 
 from core.utils.helpers import ZNE_INVITE
 
@@ -53,7 +52,7 @@ class PresetManagementView(discord.ui.LayoutView):
         if cid == "1f2bbba5b6594119cb456b88e6f11558":
             presets = await get_user_presets(uid)
             if len(presets) >= 5:
-                await interaction.response.send_message(f"{CROSS} You can only have up to 5 presets!", ephemeral=True)
+                await interaction.response.deny("You can only have up to 5 presets!", ephemeral=True)
                 return False
 
             class CreatePresetModal(discord.ui.Modal, title="Create Preset"):
@@ -66,7 +65,7 @@ class PresetManagementView(discord.ui.LayoutView):
                         text = re.sub(r'(?:https?://)?discord\.gg/\S+', ZNE_INVITE, text)
                     
                     await save_user_preset(uid, self2.title_input.value, text)
-                    await modal_interaction.response.send_message(f"{CHECKMARK} Preset `{self2.title_input.value}` saved!", ephemeral=True)
+                    await modal_interaction.response.success(f"Preset `{self2.title_input.value}` saved!", ephemeral=True)
 
             await interaction.response.send_modal(CreatePresetModal())
             return False
@@ -74,7 +73,7 @@ class PresetManagementView(discord.ui.LayoutView):
         if cid == "b0cfd6a580384e2fe661038cf4313802":
             presets = await get_user_presets(uid)
             if not presets:
-                await interaction.response.send_message("You have no presets.", ephemeral=True)
+                await interaction.response.deny("You have no presets.", ephemeral=True)
                 return False
             
             sections = [
@@ -112,7 +111,7 @@ class PresetManagementView(discord.ui.LayoutView):
         if cid == "ddd0ad568aeb431b844fc0d7d945dde1":
             presets = await get_user_presets(uid)
             if not presets:
-                await interaction.response.send_message("You have no presets to delete.", ephemeral=True)
+                await interaction.response.deny("You have no presets to delete.", ephemeral=True)
                 return False
             
             del_sections = [

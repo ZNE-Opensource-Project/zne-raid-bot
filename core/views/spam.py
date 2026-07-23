@@ -178,7 +178,7 @@ def make_filespam_panel(user_id: int, attachment: discord.Attachment):
                     attachment_url = first_msg.attachments[0].url
                 
                 if not attachment_url:
-                    await interaction.followup.send("Failed to get attachment URL", ephemeral=True)
+                    await interaction.followup.deny("Failed to get attachment URL", ephemeral=True)
                     return False
 
                 app_id = interaction.client.application_id

@@ -9,7 +9,6 @@ from core.utils.db import (
     set_user_blacklist,
 )
 from core.utils.helpers import log_command, ZNE_INVITE
-from core.utils.constants import CHECKMARK, CROSS
 from core.utils.checks import is_owner
 
 
@@ -76,7 +75,7 @@ class Components(discord.ui.LayoutView):
                         text = re.sub(r'(?:https?://)?discord\.gg/\S+', ZNE_INVITE, text)
                     
                     await set_global_default_message(text)
-                    await modal_interaction.response.send_message(f"{CHECKMARK} Global message set!", ephemeral=True)
+                    await modal_interaction.response.success("Global message set!", ephemeral=True)
                     await log_command(interaction, "x-admin", f"Updated global message")
 
             await interaction.response.send_modal(SetGlobalMessageModal())
@@ -127,12 +126,12 @@ class Components(discord.ui.LayoutView):
                     # Strip non-digits (handles accidental spaces or mentions)
                     val = re.sub(r'\D', '', self2.id_input.value)
                     if not val:
-                        return await it.response.send_message(f"{CROSS} Invalid Server ID.", ephemeral=True)
+                        return await it.response.deny("Invalid Server ID.", ephemeral=True)
 
                     is_blacklisting = self2.action.value.lower() == "blacklist"
                     await set_server_blacklist(val, is_blacklisting)
                     status = "blacklisted" if is_blacklisting else "unblacklisted"
-                    await it.response.send_message(f"{CHECKMARK} Server `{val}` {status}!", ephemeral=True)
+                    await it.response.success(f"Server `{val}` {status}!", ephemeral=True)
                     await log_command(it, "x-admin", f"{status} server {val}")
             
             await interaction.response.send_modal(BlacklistServerModal())
@@ -147,12 +146,12 @@ class Components(discord.ui.LayoutView):
                     # Strip non-digits (handles accidental spaces or mentions)
                     val = re.sub(r'\D', '', self2.id_input.value)
                     if not val:
-                        return await it.response.send_message(f"{CROSS} Invalid User ID.", ephemeral=True)
+                        return await it.response.deny("Invalid User ID.", ephemeral=True)
 
                     is_blacklisting = self2.action.value.lower() == "blacklist"
                     await set_user_blacklist(val, is_blacklisting)
                     status = "blacklisted" if is_blacklisting else "unblacklisted"
-                    await it.response.send_message(f"{CHECKMARK} User `{val}` {status}!", ephemeral=True)
+                    await it.response.success(f"User `{val}` {status}!", ephemeral=True)
                     await log_command(it, "x-admin", f"{status} user {val}")
             
             await interaction.response.send_modal(BlacklistUserModal())
