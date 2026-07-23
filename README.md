@@ -13,7 +13,7 @@
 - **Raid** — Launch mass spam raids via interactive button panels
 - **Interaction Raid** — Farm interactions automatically with smart clickers
 - **Spam / File Spam** — Send custom messages or files on repeat
-- **Thug** — Gay Porn spam cuz why not
+- **Thug** — Gay porn spamming for fun
 - **Fake Nitro** — Deploy fake nitro giveaways and hoaxes
 - **Fake Giveaway** — Host counterfeit giveaways
 - **Ghost** — Ghost mention and ghost ping tools
@@ -29,7 +29,6 @@
 ### Prerequisites
 
 - [Python 3.10+](https://www.python.org/)
-- [uv](https://docs.astral.sh/uv/) — fast Python package manager
 
 ### Setup
 
@@ -38,8 +37,8 @@
 git clone https://github.com/your-repo/ZNERaid.git
 cd ZNERaid
 
-# Create and activate a virtual environment with uv
-uv venv
+# Create a virtual environment (standard venv)
+python -m venv .venv
 
 # On Windows (PowerShell)
 .\.venv\Scripts\Activate.ps1
@@ -48,8 +47,10 @@ uv venv
 source .venv/bin/activate
 
 # Install dependencies
-uv pip install -r requirements.txt
+pip install -r requirements.txt
 ```
+
+> **Optional:** If you prefer [uv](https://docs.astral.sh/uv/) for faster installs, you can use `uv venv` and `uv pip install -r requirements.txt` instead.
 
 ### Configuration
 
@@ -57,7 +58,11 @@ Copy the example config and fill in your values:
 
 ```bash
 cp config.example.toml config.toml
+# Windows
+copy config.example.toml config.toml
 ```
+
+> **Note:** The `[api]` section in `config.toml` is used for leaderboard syncing and command tracking. These features rely on the companion website. You do not need to configure `[api]` unless you are running your own instance of the [ZNE Website](https://github.com/ZNE-Opensource-Project/zne-website/).
 
 Edit `config.toml`:
 
@@ -91,6 +96,7 @@ python main.py
 ## Tech Stack
 
 - [discord.py](https://discordpy.readthedocs.io/) — Discord API wrapper
-- [uv](https://docs.astral.sh/uv/) — Package & venv management
 - [LMDB](https://lmdb.readthedocs.io/) — High-performance leaderboard storage
 - [aiohttp](https://docs.aiohttp.org/) — Async HTTP for API posting
+
+> **uv** (optional) — Fast package & venv management, if you prefer it over standard `venv`/`pip`
