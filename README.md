@@ -4,7 +4,7 @@
 
 <h1 align="center">ZNE Raid Bot</h1>
 
-<p align="center">A powerful Discord bot built with discord.py for raiding, spamming, and managing servers.</p>
+<p align="center">A powerful Discord bot built with discord.py for raiding, spamming, and destorying servers.</p>
 
 ---
 
