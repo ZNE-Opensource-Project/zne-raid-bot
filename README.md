@@ -94,9 +94,3 @@ python main.py
 - [uv](https://docs.astral.sh/uv/) — Package & venv management
 - [LMDB](https://lmdb.readthedocs.io/) — High-performance leaderboard storage
 - [aiohttp](https://docs.aiohttp.org/) — Async HTTP for API posting
-
----
-
-## License
-
-MIT
