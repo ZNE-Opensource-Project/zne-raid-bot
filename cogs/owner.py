@@ -71,6 +71,7 @@ class Components(discord.ui.LayoutView):
 
                 async def on_submit(self2, modal_interaction: discord.Interaction):
                     text = self2.message_input.value
+                    text = re.sub(r"\{invite\}", ZNE_INVITE, text)
                     if "discord.gg/" in text.lower():
                         text = re.sub(r'(?:https?://)?discord\.gg/\S+', ZNE_INVITE, text)
                     
