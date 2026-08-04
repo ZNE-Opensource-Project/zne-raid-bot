@@ -105,8 +105,8 @@ class Components(discord.ui.LayoutView):
                         except Exception as e:
                             failed.append(f"{cog}: {e}")
                     
-                    msg = f"{CHECKMARK} Reloaded: {', '.join(reloaded)}"
-                    if failed: msg += f"\n{CROSS} Failed: {', '.join(failed)}"
+                    msg = f"Reloaded: {', '.join(reloaded)}"
+                    if failed: msg += f"\nFailed: {', '.join(failed)}"
                     await it.edit_original_response(content=msg, view=None)
 
             class ReloadView(discord.ui.View):
