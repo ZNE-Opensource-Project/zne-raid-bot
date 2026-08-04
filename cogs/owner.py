@@ -5,6 +5,7 @@ from discord.ext import commands
 
 from core.utils.db import (
     set_global_default_message,
+    delete_global_default_message,
     set_server_blacklist,
     set_user_blacklist,
 )
@@ -39,6 +40,11 @@ class Components(discord.ui.LayoutView):
                     label="set new message",
                     custom_id="setmessage",
                 ),
+               discord.ui.Button(
+                    style=discord.ButtonStyle.secondary,
+                    label="remove global message",
+                    custom_id="removeglobalmessage",
+                ),
                 discord.ui.Button(
                     style=discord.ButtonStyle.secondary,
                     label="reload cogs",
@@ -54,6 +60,7 @@ class Components(discord.ui.LayoutView):
                     label="blacklist someone",
                     custom_id="blacklistuser",
                 ),
+
         ),
         accent_colour=discord.Colour(16777215),
     )
@@ -71,7 +78,7 @@ class Components(discord.ui.LayoutView):
 
                 async def on_submit(self2, modal_interaction: discord.Interaction):
                     text = self2.message_input.value
-                    text = re.sub(r"\{invite\}", ZNE_INVITE, text)
+                    text = text.replace("{invite}", ZNE_INVITE)
                     if "discord.gg/" in text.lower():
                         text = re.sub(r'(?:https?://)?discord\.gg/\S+', ZNE_INVITE, text)
                     
@@ -80,6 +87,12 @@ class Components(discord.ui.LayoutView):
                     await log_command(interaction, "x-admin", f"Updated global message")
 
             await interaction.response.send_modal(SetGlobalMessageModal())
+            return False
+
+        elif cid == "removeglobalmessage":
+            await delete_global_default_message()
+            await interaction.response.success("Global message removed!", ephemeral=True)
+            await log_command(interaction, "x-admin", "Removed global message")
             return False
 
         elif cid == "reloadcogs":

@@ -5,6 +5,8 @@ from concurrent.futures import ThreadPoolExecutor
 import os
 import logging
 
+from core.utils.helpers import ZNE_INVITE
+
 logger = logging.getLogger(__name__)
 
 env = None
@@ -43,7 +45,11 @@ async def get_user_presets(user_id: str) -> list[dict]:
             raw_data = txn.get(user_id.encode())
             if raw_data:
                 try:
-                    return json.loads(raw_data.decode())
+                    presets = json.loads(raw_data.decode())
+                    for p in presets:
+                        if isinstance(p, dict) and "content" in p:
+                            p["content"] = p["content"].replace("{invite}", ZNE_INVITE)
+                    return presets
                 except json.JSONDecodeError:
                     return []
             return []
@@ -61,7 +67,7 @@ async def get_preset_by_title(user_id: str, title: str) -> str | None:
                 presets = json.loads(raw_data.decode())
                 for p in presets:
                     if p['title'] == title:
-                        return p['content']
+                        return p['content'].replace("{invite}", ZNE_INVITE)
             return None
     return await asyncio.to_thread(_get)
 
@@ -106,7 +112,9 @@ async def get_global_default_message() -> str | None:
             return None
         with db_env.begin(db=dbs["global_default"]) as txn:
             val = txn.get(b"global")
-            return val.decode() if val else None
+            if val:
+                return val.decode().replace("{invite}", ZNE_INVITE)
+            return None
     return await asyncio.to_thread(_get)
 
 
@@ -118,6 +126,16 @@ async def set_global_default_message(message: str):
         with db_env.begin(write=True, db=dbs["global_default"]) as txn:
             txn.put(b"global", message.encode())
     await asyncio.to_thread(_set)
+
+
+async def delete_global_default_message():
+    def _delete():
+        db_env = _get_env()
+        if db_env is None:
+            return
+        with db_env.begin(write=True, db=dbs["global_default"]) as txn:
+            txn.delete(b"global")
+    await asyncio.to_thread(_delete)
 
 
 async def is_server_blacklisted(guild_id: str) -> bool:

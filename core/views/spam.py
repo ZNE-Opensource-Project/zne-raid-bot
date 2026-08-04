@@ -145,13 +145,14 @@ def make_custom_spam_panel(user_id: int, message: str):
 
 
 # Dynamic factory for file spam panel
-def make_filespam_panel(user_id: int, attachment: discord.Attachment):
+def make_filespam_panel(user_id: int, attachment: discord.Attachment, message: str = None):
     class FileSpamPanel(discord.ui.LayoutView):
         def __init__(self):
             super().__init__(timeout=None)
             self.attachment = attachment
             self.filename = attachment.filename
             self.url = attachment.url
+            self.custom_message = message
 
         container1 = discord.ui.Container(
             discord.ui.Section(
@@ -185,10 +186,17 @@ def make_filespam_panel(user_id: int, attachment: discord.Attachment):
                 token = interaction.token
 
                 async with aiohttp.ClientSession() as session:
-                    tasks = [
-                        send_message_http(session, app_id, token, attachment_url)
-                        for _ in range(5)
-                    ]
+                    if self.custom_message:
+                        combined = f"{self.custom_message}\n{attachment_url}"
+                        tasks = [
+                            send_message_http(session, app_id, token, combined)
+                            for _ in range(5)
+                        ]
+                    else:
+                        tasks = [
+                            send_message_http(session, app_id, token, attachment_url)
+                            for _ in range(5)
+                        ]
                     await asyncio.gather(*tasks)
 
                 return False

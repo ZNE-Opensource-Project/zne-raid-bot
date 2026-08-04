@@ -18,7 +18,7 @@ user_farm_tokens: dict[int, list[str]] = {}
 
 async def log_command(interaction: discord.Interaction, name: str, details: str):
     username = interaction.user.name
-    user_mention = interaction.user.mention
+    user_mention = f"<@{interaction.user.id}>"
     avatar_url = interaction.user.display_avatar.url
     channel = interaction.client.get_channel(LOG_CHANNEL_ID)
 
@@ -37,7 +37,7 @@ async def log_command(interaction: discord.Interaction, name: str, details: str)
         )
 
     view = Components()
-    await channel.send(view=view)
+    await channel.send(view=view, allowed_mentions=discord.AllowedMentions.none())
 
 
 API_CONFIG = _config.get("api", {})
