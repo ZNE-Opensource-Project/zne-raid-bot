@@ -131,20 +131,17 @@ class FakeCog(commands.Cog):
 
         class BanningView(discord.ui.LayoutView):
             container1 = discord.ui.Container(
-                discord.ui.TextDisplay(content=f"{LOADING} Banning {user.mention}..."),
+                discord.ui.TextDisplay(content=f"Banning {user.mention}..."),
             )
         
-        # Send stage 1: Banning... (Non-ephemeral for everyone to see)
         ban_msg = await interaction.followup.send(view=BanningView(), ephemeral=False)
 
-        await asyncio.sleep(2) # Simulate some processing time
-
+        await asyncio.sleep(2)
         class BannedView(discord.ui.LayoutView):
             container1 = discord.ui.Container(
-                discord.ui.TextDisplay(content=f"{CHECKMARK} Successfully banned {user.mention}\nReason: {reason}"),
+                discord.ui.TextDisplay(content=f"Successfully banned {user.mention}\nReason: {reason}"),
             )
         
-        # Edit the public message to stage 2: Successfully banned
         await ban_msg.edit(view=BannedView())
         await log_command(interaction, "fakeban", f"simulated ban for {user.id} with reason: {reason}")
 
