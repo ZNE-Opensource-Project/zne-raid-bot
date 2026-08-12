@@ -15,7 +15,6 @@ from core.views import (
     SpamButton,
     PingPanel, 
     ThugView, 
-    make_farm_panel, 
     make_custom_spam_panel, 
     make_filespam_panel, 
     FakeNitroView, 

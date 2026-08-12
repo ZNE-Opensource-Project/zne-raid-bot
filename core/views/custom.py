@@ -146,7 +146,7 @@ class PresetManagementView(discord.ui.LayoutView):
                             @discord.ui.button(label="Confirm Delete", style=discord.ButtonStyle.danger)
                             async def confirm(self, it2: discord.Interaction, button: discord.ui.Button):
                                 await delete_user_preset(self.user_id, self.t)
-                                await it2.response.edit_message(content=f"{CHECKMARK} Deleted preset `{self.t}`", view=None)
+                                await it2.response.edit_message(content=f"Deleted preset `{self.t}`", view=None)
                             
                             @discord.ui.button(label="Cancel", style=discord.ButtonStyle.secondary)
                             async def cancel(self, it2: discord.Interaction, button: discord.ui.Button):
