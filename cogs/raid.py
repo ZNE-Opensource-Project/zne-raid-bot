@@ -49,23 +49,6 @@ class RaidCog(commands.Cog):
         await interaction.followup.send(view=SpamButton(interaction.user.id, preset_content), ephemeral=True)
         await log_command(interaction, "ra1d", "user raided a server")
 
-    @app_commands.command(name="interaction-ra1d", description="interaction raiding.")
-    @app_commands.describe(preset="Optional preset to use for the interaction raid")
-    @app_commands.autocomplete(preset=preset_autocomplete)
-    @app_commands.allowed_contexts(guilds=True, dms=True, private_channels=True)
-    async def interaction_ra1d(self, interaction: discord.Interaction, preset: str = None):
-        await interaction.response.defer(ephemeral=True, thinking=True)
-
-        preset_content = None
-        if preset:
-            preset_content = await get_preset_by_title(str(interaction.user.id), preset)
-
-        await interaction.followup.send(
-            view=make_farm_panel(interaction.user.id, 0, preset_content),
-            ephemeral=True
-        )
-        await log_command(interaction, "interaction-ra1d", "user opened interaction farm panel")
-
     @app_commands.command(name="setpresetmsg", description="open the custom ra1d message panel")
     @app_commands.allowed_contexts(guilds=True, dms=True, private_channels=True)
     async def custom_ra1d(self, interaction: discord.Interaction):
