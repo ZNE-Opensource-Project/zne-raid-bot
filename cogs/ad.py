@@ -16,7 +16,8 @@ class Panel(commands.Cog):
         await interaction.response.defer(ephemeral=True, thinking=True)
 
         class Components(discord.ui.LayoutView):
-            text_display1 = discord.ui.TextDisplay(content=f"{ZNE_INVITE} {'@everyone ' if not noping else ''}")
+            discord.ui.TextDisplay(content=f"{ZNE_INVITE} {'@everyone ' if not noping else ''}"),
+            
             container1 = discord.ui.Container(
                 discord.ui.TextDisplay(content="# __WELCOME TO ZNE__\n**STOP PAYING FOR GARBAGE BOTS THAT BARELY HAVE ANY FEATURES**\nZNE is a 100% free discord raid bot, no premium shenanigans, no hidden paywalls\nZNE has been free for a *YEAR* now (made in april 2025)"),
                 discord.ui.Separator(visible=True, spacing=discord.SeparatorSpacing.small),
@@ -29,7 +30,7 @@ class Panel(commands.Cog):
                 ),
                 discord.ui.ActionRow(
                     discord.ui.Button(
-                        url={ZNE_INVITE},
+                        url=ZNE_INVITE,
                         style=discord.ButtonStyle.link,
                         label="join",
                     ),
