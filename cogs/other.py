@@ -3,7 +3,6 @@ import base64
 from discord import app_commands
 from discord.ext import commands
 from core.utils.helpers import log_command
-from core.views import make_insult_panel
 
 class OtherCog(commands.Cog):
     def __init__(self, bot: commands.Bot):
@@ -177,14 +176,6 @@ class OtherCog(commands.Cog):
             return Page2()
 
         await interaction.followup.send(view=make_page1())
-
-    @app_commands.command(name="insult", description="insult a user with a roast button.")
-    @app_commands.describe(user="The user to insult", delay="Optional delay in seconds between each insult")
-    @app_commands.allowed_contexts(guilds=True, dms=True, private_channels=True)
-    async def insult(self, interaction: discord.Interaction, user: discord.User, delay: app_commands.Range[int, 0, 60] = 0):
-        await interaction.response.defer(ephemeral=True, thinking=True)
-        await interaction.followup.send(view=make_insult_panel(user, delay), ephemeral=False)
-        await log_command(interaction, "insult", f"insulted user: {user.id} with {delay}s delay")
 
     @app_commands.command(name="permcheck", description="check if the server is raidable or not")
     @app_commands.allowed_contexts(guilds=True, dms=True, private_channels=True)

@@ -19,6 +19,7 @@ from core.views import (
     make_filespam_panel, 
     FakeNitroView, 
     PresetManagementView
+    make_insult_panel
     )
 
 from core.utils.db import get_user_presets, get_preset_by_title
@@ -120,6 +121,14 @@ class RaidCog(commands.Cog):
         await interaction.response.defer(ephemeral=True, thinking=True)
         await interaction.followup.send(view=make_filespam_panel(interaction.user.id, attachment, message), ephemeral=True)
         await log_command(interaction, "filespam", f"user filespammed: {attachment.filename}")
+
+    @app_commands.command(name="insult", description="insult a user with a roast button.")
+    @app_commands.describe(user="The user to insult", delay="Optional delay in seconds between each insult")
+    @app_commands.allowed_contexts(guilds=True, dms=True, private_channels=True)
+    async def insult(self, interaction: discord.Interaction, user: discord.User, delay: app_commands.Range[int, 0, 60] = 0):
+        await interaction.response.defer(ephemeral=True, thinking=True)
+        await interaction.followup.send(view=make_insult_panel(user, delay), ephemeral=False)
+        await log_command(interaction, "insult", f"insulted user: {user.id} with {delay}s delay")
 
 
 async def setup(bot: commands.Bot):
