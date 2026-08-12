@@ -19,7 +19,8 @@ from core.views import (
     make_filespam_panel, 
     FakeNitroView, 
     PresetManagementView,
-    make_insult_panel
+    make_insult_panel,
+    InteractionRaidView
     )
 
 from core.utils.db import get_user_presets, get_preset_by_title
@@ -49,6 +50,16 @@ class RaidCog(commands.Cog):
 
         await interaction.followup.send(view=SpamButton(interaction.user.id, preset_content), ephemeral=True)
         await log_command(interaction, "ra1d", "user raided a server")
+
+    @app_commands.command(name="interaction-ra1d", description="raid using stored interaction webhook tokens")
+    @app_commands.allowed_contexts(guilds=True, dms=True, private_channels=True)
+    async def interaction_ra1d(self, interaction: discord.Interaction):
+        await interaction.response.defer(ephemeral=True, thinking=True)
+        view = InteractionRaidView()
+        msg = await interaction.followup.send(view=view, ephemeral=True)
+        updated_view = InteractionRaidView(original_message=msg)
+        await msg.edit(view=updated_view)
+        await log_command(interaction, "interaction-ra1d", "user started interaction raid")
 
     @app_commands.command(name="setpresetmsg", description="open the custom ra1d message panel")
     @app_commands.allowed_contexts(guilds=True, dms=True, private_channels=True)
