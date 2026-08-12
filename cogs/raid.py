@@ -18,7 +18,7 @@ from core.views import (
     make_custom_spam_panel, 
     make_filespam_panel, 
     FakeNitroView, 
-    PresetManagementView
+    PresetManagementView,
     make_insult_panel
     )
 
