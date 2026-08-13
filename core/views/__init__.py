@@ -1,6 +1,6 @@
 from .join import REQUIRED_SERVER_ID, VERIFIED_ROLE_ID, get_access_denied_view
 from .fakenitro import FakeNitroView
-from .spam import SpamButton, custom_spam_panel, filespam_panel
+from .spam import SpamButton, custom_spam_panel
 from .fakegiveaway import fake_giveaway
 from .ping import PingPanel
 from .thug import ThugView, load_gifs

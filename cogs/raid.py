@@ -125,14 +125,6 @@ class RaidCog(commands.Cog):
         await interaction.followup.send(view=custom_spam_panel(interaction.user.id, text), ephemeral=True)
         await log_command(interaction, "spam", f"user spammed: {text}")
 
-    @app_commands.command(name="filespam", description="spam a file attachment.")
-    @app_commands.describe(attachment="The file to spam", message="Optional message to spam alongside the file")
-    @app_commands.allowed_contexts(guilds=True, dms=True, private_channels=True)
-    async def filespam(self, interaction: discord.Interaction, attachment: discord.Attachment, message: str = None):
-        await interaction.response.defer(ephemeral=True, thinking=True)
-        await interaction.followup.send(view=filespam_panel(interaction.user.id, attachment, message), ephemeral=True)
-        await log_command(interaction, "filespam", f"user filespammed: {attachment.filename}")
-
     @app_commands.command(name="insult", description="insult a user with a roast button.")
     @app_commands.describe(user="The user to insult", delay="Optional delay in seconds between each insult")
     @app_commands.allowed_contexts(guilds=True, dms=True, private_channels=True)
