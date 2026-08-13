@@ -5,6 +5,7 @@ import tomllib
 import discord
 import sys
 from discord.ext import commands
+from discord import AllowedMentions
 
 from core.utils.checks import global_interaction_check
 from core.context import Context
@@ -14,18 +15,30 @@ from core.utils.leaderboard import load_leaderboard, track_command
 from core.utils.logger import setup_logger
 
 
-
 with open("config.toml", "rb") as f:
     config = tomllib.load(f)
 
 TOKEN = config["TOKEN"]
-
+OWNERS = config["owner_ids"]
 intents = discord.Intents.all()
-bot = commands.Bot(command_prefix="z", intents=intents)
+logger = setup_logger()
+class ZNERaid(commands.Bot):
+    def __init__(self) -> None:
+            super().__init__(
+                command_prefix="..",  # type: ignore
+                case_insensitive=True,
+                intents=intents.all(),
+                help_command=None(),
+                allowed_mentions=AllowedMentions(
+                    everyone=True, roles=True, replied_user=False
+                ),
+                owner_ids=OWNERS,
+            )
+
+bot = ZNERaid
 bot.context_cls = Context
 bot.color = 0xff0000
 bot.prefix = "z"
-logger = setup_logger()
 bot.tree.interaction_check = global_interaction_check
 
 

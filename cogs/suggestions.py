@@ -132,7 +132,7 @@ class SuggestButton(discord.ui.Button):
         super().__init__(
             style=discord.ButtonStyle.secondary,
             label="Suggest",
-            custom_id=suggest_button,
+            custom_id="suggest_button",
         )
 
     async def callback(self, interaction: discord.Interaction):
