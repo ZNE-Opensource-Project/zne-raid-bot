@@ -33,7 +33,6 @@ class OtherCog(commands.Cog):
         userid_into_base64 = base64.b64encode(str(full_user.id).encode()).decode().rstrip("=")
         bot_status = "YES" if full_user.bot else "NO"
         usericon = full_user.display_avatar.url
-        banner = full_user.banner.url if hasattr(full_user, 'banner') and full_user.banner else "https://placehold.co/680x240?text=nobanner"
 
         class UserInfo(discord.ui.LayoutView):    
             container1 = discord.ui.Container(
@@ -41,11 +40,6 @@ class OtherCog(commands.Cog):
                     discord.ui.TextDisplay(content=f"# {display_name}\ndiscord join: {join_ts}\nserver join: {serv_ts}\nusername: `{full_user.name}`\nid: `{full_user.id}`\nfirst token segment: `{userid_into_base64}`\nbot?: {bot_status}"),
                     accessory=discord.ui.Thumbnail(
                         media=usericon,
-                    ),
-                ),
-                discord.ui.MediaGallery(
-                    discord.MediaGalleryItem(
-                        media=banner,
                     ),
                 ),
                 accent_colour=discord.Colour(16777215),
