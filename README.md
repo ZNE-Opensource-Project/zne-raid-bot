@@ -34,7 +34,7 @@
 
 ```bash
 # Clone the repo
-git clone https://github.com/your-repo/ZNERaid.git
+git clone https://github.com/ZNE-Opensource-Project/zne-raid-bot.git
 cd ZNERaid
 
 # Create a virtual environment (standard venv)

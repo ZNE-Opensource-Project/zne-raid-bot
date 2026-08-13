@@ -49,20 +49,20 @@ async def global_interaction_check(interaction: discord.Interaction) -> bool:
 
     guild = interaction.client.get_guild(REQUIRED_SERVER_ID)
     if guild is None:
-        from core.views.join import get_access_denied_view
-        await interaction.response.send_message(ephemeral=True, view=get_access_denied_view(interaction.client.user))
+        from core.views.join import access_denined_view
+        await interaction.response.send_message(ephemeral=True, view=access_denined_view(interaction.client.user))
         return False
 
     member = guild.get_member(user_id)
     if member is None:
-        from core.views.join import get_access_denied_view
-        await interaction.response.send_message(ephemeral=True, view=get_access_denied_view(interaction.client.user))
+        from core.views.join import access_denined_view
+        await interaction.response.send_message(ephemeral=True, view=access_denined_view(interaction.client.user))
         return False
 
     role = guild.get_role(VERIFIED_ROLE_ID)
     if role is None or role not in member.roles:
-        from core.views.join import get_access_denied_view
-        await interaction.response.send_message(ephemeral=True, view=get_access_denied_view(interaction.client.user))
+        from core.views.join import access_denined_view
+        await interaction.response.send_message(ephemeral=True, view=access_denined_view(interaction.client.user))
         return False
 
     return True
