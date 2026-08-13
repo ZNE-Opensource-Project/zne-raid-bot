@@ -10,16 +10,16 @@
 
 ## Features
 
-- **Raid** — Launch mass spam raids via interactive button panels
-- **Interaction Raid** — Farm interactions automatically with smart clickers
-- **Spam / File Spam** — Send custom messages or files on repeat
+- **Raid** — Insanely Fast Raid Command
+- **Interaction Raid** — Send bursts of messages via one button (up-to unlimited)
+- **Spam** — Send custom messages or files on repeat
 - **Thug** — Gay porn spamming for fun
 - **Fake Nitro** — Deploy fake nitro giveaways and hoaxes
 - **Fake Giveaway** — Host counterfeit giveaways
 - **Ghost** — Ghost mention and ghost ping tools
 - **DM Raid** — Direct message flooding tools
 - **Ads** — Automatic advertisement posting
-- **Leaderboard** — Track top raiders with LMDB-backed persistence
+- **Leaderboard** — Track top raiders 
 - **Admin Tools** — Reload cogs, set global messages, blacklist servers/users
 
 ---
