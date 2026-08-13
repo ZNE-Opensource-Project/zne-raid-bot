@@ -3,7 +3,7 @@ import logging
 import os
 import tomllib
 import discord
-import sys as _sys
+import sys
 from discord.ext import commands
 
 from core.utils.checks import global_interaction_check
@@ -23,11 +23,10 @@ TOKEN = config["TOKEN"]
 intents = discord.Intents.all()
 bot = commands.Bot(command_prefix="z", intents=intents)
 bot.context_cls = Context
-logger = setup_logger()
-bot.tree.interaction_check = global_interaction_check
-
 bot.color = 0xff0000
 bot.prefix = "z"
+logger = setup_logger()
+bot.tree.interaction_check = global_interaction_check
 
 
 def get_global_total_commands() -> int:
@@ -149,4 +148,4 @@ if __name__ == "__main__":
     try:
         asyncio.run(main())
     except KeyboardInterrupt:
-        exit
+        sys.exit()
