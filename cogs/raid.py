@@ -83,21 +83,17 @@ class RaidCog(commands.Cog):
         expires_ts = int(time.time()) + 7 * 24 * 60 * 60
         avatar_url = user.display_avatar.url
 
-        class Components(discord.ui.LayoutView):
+        class Components(discord.ui.LayoutView):    
             container1 = discord.ui.Container(
                 discord.ui.Section(
-                    discord.ui.TextDisplay(content=f"# {user.mention} ur raid was completed!\nthanks for using **ZNE** bot to raid servers! your trial will end in <t:{expires_ts}:R>"),
+                    discord.ui.TextDisplay(content=f"## `✅`  Raid Completed\n{user.mention} Your raid was completed!\n**Remember!** your trial is ending in <t:{expires_ts}:R>"),
                     accessory=discord.ui.Thumbnail(
                         media=avatar_url,
                     ),
                 ),
-                discord.ui.ActionRow(
-                    discord.ui.Button(
-                        url="https://discord.gg/4pQzcZxVXK",
-                        style=discord.ButtonStyle.link,
-                        label="join",
-                    ),
-                ),
+                discord.ui.Separator(visible=True, spacing=discord.SeparatorSpacing.small),
+                discord.ui.TextDisplay(content=f"-# Join our [discord]({ZNE_INVITE}) to remove this message"),
+                accent_colour=discord.Colour(16777215),
             )
 
         await interaction.followup.send(view=Components())
