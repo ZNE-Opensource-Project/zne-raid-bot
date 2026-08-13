@@ -15,7 +15,7 @@ def load_insults() -> list[str]:
         return []
 
 
-def make_insult_panel(user: discord.User, delay: int = 0):
+def insult_panel(user: discord.User, delay: int = 0):
     class InsultView(discord.ui.LayoutView):
         def __init__(self):
             super().__init__(timeout=None)

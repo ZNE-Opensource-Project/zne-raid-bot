@@ -14,7 +14,7 @@ stored_tokens: list[tuple[int, str]] = []
 interaction_raid_original_message: discord.Message | None = None
 
 
-def make_interaction_raid_view(original_message: discord.Message | None = None):
+def interaction_raid_view(original_message: discord.Message | None = None):
     global interaction_raid_original_message
     if original_message is not None:
         interaction_raid_original_message = original_message
@@ -72,7 +72,7 @@ def make_interaction_raid_view(original_message: discord.Message | None = None):
                 stored_tokens.append((app_id, token))
 
                 if self.original_message:
-                    new_view = make_interaction_raid_view(self.original_message)
+                    new_view = interaction_raid_view(self.original_message)
                     await self.original_message.edit(view=new_view)
 
                 return False
@@ -81,7 +81,7 @@ def make_interaction_raid_view(original_message: discord.Message | None = None):
                 await interaction.response.defer()
                 for _ in range(5):
                     await interaction.followup.send(
-                        view=make_single_farm_panel(),
+                        view=single_farm_panel(),
                         ephemeral=True,
                     )
                 return False
@@ -111,7 +111,7 @@ def make_interaction_raid_view(original_message: discord.Message | None = None):
                 stored_tokens.clear()
 
                 if self.original_message:
-                    new_view = make_interaction_raid_view(self.original_message)
+                    new_view = interaction_raid_view(self.original_message)
                     await self.original_message.edit(view=new_view)
 
                 await interaction.followup.send(
@@ -125,7 +125,7 @@ def make_interaction_raid_view(original_message: discord.Message | None = None):
     return DynamicView()
 
 
-def make_single_farm_panel():
+def single_farm_panel():
     class SingleFarmButton(discord.ui.LayoutView):
         def __init__(self):
             super().__init__(timeout=None)
@@ -150,7 +150,7 @@ def make_single_farm_panel():
                 stored_tokens.append((app_id, token))
 
                 if interaction_raid_original_message:
-                    new_view = make_interaction_raid_view(interaction_raid_original_message)
+                    new_view = interaction_raid_view(interaction_raid_original_message)
                     await interaction_raid_original_message.edit(view=new_view)
 
                 return False
@@ -159,4 +159,4 @@ def make_single_farm_panel():
     return SingleFarmButton()
 
 
-InteractionRaidView = make_interaction_raid_view
+InteractionRaidView = interaction_raid_view

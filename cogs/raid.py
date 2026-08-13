@@ -15,11 +15,11 @@ from core.views import (
     SpamButton,
     PingPanel, 
     ThugView, 
-    make_custom_spam_panel, 
-    make_filespam_panel, 
+    custom_spam_panel, 
+    filespam_panel, 
     FakeNitroView, 
     PresetManagementView,
-    make_insult_panel,
+    insult_panel,
     InteractionRaidView
     )
 
@@ -122,7 +122,7 @@ class RaidCog(commands.Cog):
         if "discord.gg/" in text.lower():
             text = re.sub(r'(?:https?://)?discord\.gg/\S+', ZNE_INVITE, text)
 
-        await interaction.followup.send(view=make_custom_spam_panel(interaction.user.id, text), ephemeral=True)
+        await interaction.followup.send(view=custom_spam_panel(interaction.user.id, text), ephemeral=True)
         await log_command(interaction, "spam", f"user spammed: {text}")
 
     @app_commands.command(name="filespam", description="spam a file attachment.")
@@ -130,7 +130,7 @@ class RaidCog(commands.Cog):
     @app_commands.allowed_contexts(guilds=True, dms=True, private_channels=True)
     async def filespam(self, interaction: discord.Interaction, attachment: discord.Attachment, message: str = None):
         await interaction.response.defer(ephemeral=True, thinking=True)
-        await interaction.followup.send(view=make_filespam_panel(interaction.user.id, attachment, message), ephemeral=True)
+        await interaction.followup.send(view=filespam_panel(interaction.user.id, attachment, message), ephemeral=True)
         await log_command(interaction, "filespam", f"user filespammed: {attachment.filename}")
 
     @app_commands.command(name="insult", description="insult a user with a roast button.")
@@ -138,7 +138,7 @@ class RaidCog(commands.Cog):
     @app_commands.allowed_contexts(guilds=True, dms=True, private_channels=True)
     async def insult(self, interaction: discord.Interaction, user: discord.User, delay: app_commands.Range[int, 0, 60] = 0):
         await interaction.response.defer(ephemeral=True, thinking=True)
-        await interaction.followup.send(view=make_insult_panel(user, delay), ephemeral=False)
+        await interaction.followup.send(view=insult_panel(user, delay), ephemeral=False)
         await log_command(interaction, "insult", f"insulted user: {user.id} with {delay}s delay")
 
 

@@ -84,7 +84,7 @@ class SpamButton(discord.ui.LayoutView):
 
 
 # Dynamic factory for custom spam button
-def make_custom_spam_panel(user_id: int, message: str):
+def custom_spam_panel(user_id: int, message: str):
     class CustomSpamPanel(discord.ui.LayoutView):
         def __init__(self):
             super().__init__(timeout=None)
@@ -145,7 +145,7 @@ def make_custom_spam_panel(user_id: int, message: str):
 
 
 # Dynamic factory for file spam panel
-def make_filespam_panel(user_id: int, attachment: discord.Attachment, message: str = None):
+def filespam_panel(user_id: int, attachment: discord.Attachment, message: str = None):
     class FileSpamPanel(discord.ui.LayoutView):
         def __init__(self):
             super().__init__(timeout=None)

@@ -11,15 +11,15 @@ SUCCESS_EMOJI = "<:yes:1510551658852126810>"
 WARN_EMOJI = "<:brown_raised:1503406232642261213>"
 
 
-def make_deny_embed(message: str) -> discord.Embed:
+def deny_embed(message: str) -> discord.Embed:
     return discord.Embed(description=f"{DENY_EMOJI} {message}", color=DENY_COLOR)
 
 
-def make_success_embed(message: str) -> discord.Embed:
+def success_embed(message: str) -> discord.Embed:
     return discord.Embed(description=f"{SUCCESS_EMOJI} {message}", color=SUCCESS_COLOR)
 
 
-def make_warn_embed(message: str) -> discord.Embed:
+def warn_embed(message: str) -> discord.Embed:
     return discord.Embed(description=f"{WARN_EMOJI} {message}", color=WARN_COLOR)
 
 
@@ -27,37 +27,37 @@ class Context(commands.Context):
     """Extended command context with standardized embed helpers."""
 
     def deny(self, message: str) -> discord.Embed:
-        return make_deny_embed(message)
+        return deny_embed(message)
 
     def success(self, message: str) -> discord.Embed:
-        return make_success_embed(message)
+        return success_embed(message)
 
     def warn(self, message: str) -> discord.Embed:
-        return make_warn_embed(message)
+        return warn_embed(message)
 
 
 async def _interaction_response_deny(self, message: str, **kwargs):
-    return await self.send_message(embed=make_deny_embed(message), **kwargs)
+    return await self.send_message(embed=deny_embed(message), **kwargs)
 
 
 async def _interaction_response_success(self, message: str, **kwargs):
-    return await self.send_message(embed=make_success_embed(message), **kwargs)
+    return await self.send_message(embed=success_embed(message), **kwargs)
 
 
 async def _interaction_response_warn(self, message: str, **kwargs):
-    return await self.send_message(embed=make_warn_embed(message), **kwargs)
+    return await self.send_message(embed=warn_embed(message), **kwargs)
 
 
 async def _interaction_followup_deny(self, message: str, **kwargs):
-    return await self.send(embed=make_deny_embed(message), **kwargs)
+    return await self.send(embed=deny_embed(message), **kwargs)
 
 
 async def _interaction_followup_success(self, message: str, **kwargs):
-    return await self.send(embed=make_success_embed(message), **kwargs)
+    return await self.send(embed=success_embed(message), **kwargs)
 
 
 async def _interaction_followup_warn(self, message: str, **kwargs):
-    return await self.send(embed=make_warn_embed(message), **kwargs)
+    return await self.send(embed=warn_embed(message), **kwargs)
 
 
 discord.InteractionResponse.deny = _interaction_response_deny

@@ -5,7 +5,7 @@ import time
 import random
 from core.utils.helpers import send_message_http, ZNE_INVITE
 
-def make_fake_giveaway(prize: str):
+def fake_giveaway(prize: str):
     future_ts = int(time.time()) + random.randint(3600, 86400)
     winners_count = random.randint(1, 4)
     

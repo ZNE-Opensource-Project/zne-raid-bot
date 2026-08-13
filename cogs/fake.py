@@ -10,7 +10,7 @@ from PIL import Image, ImageDraw, ImageOps, ImageFont
 from datetime import datetime
 
 from core.utils.helpers import log_command
-from core.views import FakeNitroView, make_fake_giveaway
+from core.views import FakeNitroView, fake_giveaway
 
 
 class FakeCog(commands.Cog):
@@ -65,7 +65,7 @@ class FakeCog(commands.Cog):
     async def fake_giveaway(self, interaction: discord.Interaction, prize: str):
         await interaction.response.defer(ephemeral=True, thinking=True)
         await interaction.followup.send("⌛ Loading giveaway panel...", ephemeral=True)
-        await interaction.followup.send(view=make_fake_giveaway(prize), ephemeral=False)
+        await interaction.followup.send(view=fake_giveaway(prize), ephemeral=False)
         await log_command(interaction, "fake giveaway", f"user baited someone with a fake giveaway for: {prize}")
 
     @app_commands.command(name="fakemessage", description="send a fake message")

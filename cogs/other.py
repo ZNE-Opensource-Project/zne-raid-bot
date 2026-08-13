@@ -112,7 +112,7 @@ class OtherCog(commands.Cog):
 
         cog_lines = "\n".join([f"> {name} = `{count}` command{'s' if count != 1 else ''}" for name, count in cog_data])
 
-        def make_page1():
+        def page1():
             class Page1(discord.ui.LayoutView):
                 container1 = discord.ui.Container(
                     discord.ui.Section(
@@ -142,11 +142,11 @@ class OtherCog(commands.Cog):
                 async def interaction_check(self2, it: discord.Interaction) -> bool:
                     cid = it.data.get("custom_id")
                     if cid == "next_btn":
-                        await it.response.edit_message(view=make_page2())
+                        await it.response.edit_message(view=page2())
                     return False
             return Page1()
 
-        def make_page2():
+        def page2():
             class Page2(discord.ui.LayoutView):
                 container1 = discord.ui.Container(
                     discord.ui.TextDisplay(content="# Cogs loaded"),
@@ -171,11 +171,11 @@ class OtherCog(commands.Cog):
                 async def interaction_check(self2, it: discord.Interaction) -> bool:
                     cid = it.data.get("custom_id")
                     if cid == "back_btn":
-                        await it.response.edit_message(view=make_page1())
+                        await it.response.edit_message(view=page1())
                     return False
             return Page2()
 
-        await interaction.followup.send(view=make_page1())
+        await interaction.followup.send(view=page1())
 
     @app_commands.command(name="permcheck", description="check if the server is raidable or not")
     @app_commands.allowed_contexts(guilds=True, dms=True, private_channels=True)
