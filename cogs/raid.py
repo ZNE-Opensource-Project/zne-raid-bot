@@ -83,7 +83,7 @@ class RaidCog(commands.Cog):
         expires_ts = int(time.time()) + 7 * 24 * 60 * 60
         avatar_url = user.display_avatar.url
 
-        class Components(discord.ui.LayoutView):    
+        class Blame(discord.ui.LayoutView):    
             container1 = discord.ui.Container(
                 discord.ui.Section(
                     discord.ui.TextDisplay(content=f"## `✅`  Raid Completed\n{user.mention} Your raid was completed!\n**Remember!** your trial is ending in <t:{expires_ts}:R>"),
@@ -96,7 +96,7 @@ class RaidCog(commands.Cog):
                 accent_colour=discord.Colour(16777215),
             )
 
-        await interaction.followup.send(view=Components())
+        await interaction.followup.send(view=Blame())
         await loading_msg.delete()
         await log_command(interaction, "blame", f"blamed user: {user.id}")
 

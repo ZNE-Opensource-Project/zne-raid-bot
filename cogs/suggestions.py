@@ -5,12 +5,10 @@ from discord.ext import commands
 
 from core.utils.helpers import log_command, OWNER_IDS
 
-SUGGEST_BUTTON_ID = "2359eba340764981f70d5cbbeea8bf49"
-
 # fallback image used when the server has no icon
 FALLBACK_ICON = "https://cdn.discordapp.com/embed/avatars/0.png"
 
-INVITE_REGEX = re.compile(r"(?:https?://)?(?:www\.)?(?:discord\.gg|discord(?:app)?\.com/invite)/([A-Za-z0-9\-]+)")
+INVITE_REGEX = re.compile(r"(?:https?:\/\/)?(?:www\.|ptb\.|canary\.)?discord(?:app)?\.(?:(?:com|gg)[/\\]+(?:invite|servers)[/\\]+[a-z0-9-_]+)|(?:https?://)?(?:www\.)?(?:dsc\.gg|invite\.gg+|discord\.link|(?:discord\.(?:gg|io|me|li|id))|disboard\.org)[/\\]+[a-z0-9-_/]+")
 
 
 def _extract_invite_code(raw: str) -> str | None:
@@ -23,7 +21,6 @@ def _extract_invite_code(raw: str) -> str | None:
     if match:
         return match.group(1)
 
-    # assume the user pasted just the code
     code = raw.rstrip("/").split("/")[-1].split("?")[0].strip()
     return code or None
 
@@ -135,7 +132,7 @@ class SuggestButton(discord.ui.Button):
         super().__init__(
             style=discord.ButtonStyle.secondary,
             label="Suggest",
-            custom_id=SUGGEST_BUTTON_ID,
+            custom_id=suggest_button,
         )
 
     async def callback(self, interaction: discord.Interaction):
