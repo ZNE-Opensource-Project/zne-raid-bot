@@ -16,9 +16,9 @@ from core.utils.logger import setup_logger
 
 
 with open("config.toml", "rb") as f:
-    _config = tomllib.load(f)
+    config = tomllib.load(f)
 
-TOKEN = _config["TOKEN"]
+TOKEN = config["TOKEN"]
 
 intents = discord.Intents.all()
 bot = commands.Bot(command_prefix="z", intents=intents)
