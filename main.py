@@ -28,14 +28,14 @@ class ZNERaid(commands.Bot):
                 command_prefix="..",  # type: ignore
                 case_insensitive=True,
                 intents=intents.all(),
-                help_command=None(),
+                help_command=None,
                 allowed_mentions=AllowedMentions(
                     everyone=True, roles=True, replied_user=False
                 ),
                 owner_ids=OWNERS,
             )
 
-bot = ZNERaid
+bot = ZNERaid()
 bot.context_cls = Context
 bot.color = 0xff0000
 bot.prefix = "z"
