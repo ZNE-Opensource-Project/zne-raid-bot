@@ -27,11 +27,6 @@ class SpamButton(discord.ui.LayoutView):
                     label="SPAM 5X",
                     custom_id="send_spam_button",
                 ),
-                discord.ui.Button(
-                    style=discord.ButtonStyle.secondary,
-                    label="SPAM 6X",
-                    custom_id="send_spam_button_6x",
-                ),
         ),
         accent_colour=discord.Colour(16777215),
     )
@@ -57,30 +52,6 @@ class SpamButton(discord.ui.LayoutView):
                 await asyncio.gather(*tasks)
 
             return False
-
-        if interaction.data.get("custom_id") == "send_spam_button_6x":
-            await interaction.response.defer()
-
-            if self.preset_content:
-                msg = self.preset_content
-            else:
-                global_msg = await get_global_default_message()
-                msg = global_msg if global_msg else DEFAULT_BUTTON_MESSAGE
-
-            await interaction.followup.send(msg, ephemeral=False, allowed_mentions=discord.AllowedMentions(everyone=True))
-
-            app_id = interaction.client.application_id
-            token = interaction.token
-
-            async with aiohttp.ClientSession() as session:
-                tasks = [
-                    send_message_http(session, app_id, token, msg)
-                    for _ in range(5)
-                ]
-                await asyncio.gather(*tasks)
-
-            return False
-        return True
 
 
 # Dynamic factory for custom spam button
