@@ -16,7 +16,6 @@ from core.views import (
     PingPanel, 
     ThugView, 
     custom_spam_panel, 
-    filespam_panel, 
     FakeNitroView, 
     PresetManagementView,
     insult_panel,
