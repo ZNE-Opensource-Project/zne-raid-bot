@@ -1,7 +1,9 @@
 TOKEN = ""
+
 owner_ids = []
 owner_blacklist_bypass = false
 zne_invite = "https://discord.gg/4pQzcZxVXK"
+
 [server]
 main_server = 0
 verified_role_id = 0
@@ -22,5 +24,4 @@ https://discord.gg/4pQzcZxVXK
 
 [api]
 url = ""
-
 secret = ""
