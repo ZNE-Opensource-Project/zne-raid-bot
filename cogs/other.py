@@ -15,7 +15,6 @@ class OtherCog(commands.Cog):
         await interaction.response.defer(ephemeral=True)
         target = user or interaction.user
         
-        # Fetch full user to ensure banner access
         try:
             full_user = await self.bot.fetch_user(target.id)
         except:
@@ -194,18 +193,15 @@ class OtherCog(commands.Cog):
                     await it.response.defer(ephemeral=True)
                     status_text = "not raidable"
 
-                    # Attempt a standard message send first. 
-                    # This is the most reliable way to check for read-only or locked channels.
+                  
                     try:
                         msg = await it.channel.send("\u200c")
                         status_text = "yes its raidable"
                         try: await msg.delete()
                         except: pass
                     except discord.Forbidden:
-                        # If standard fails, try the bot's interaction raid method (webhook followup)
                         try:
                             msg = await it.followup.send("\u200c", ephemeral=False)
-                            # Detect if Discord forced the message to be ephemeral (common if External Apps are restricted)
                             if msg.flags.ephemeral:
                                 status_text = "not raidable"
                             else:

@@ -41,7 +41,7 @@ async def log_command(interaction: discord.Interaction, name: str, details: str)
 
 
 API_CONFIG = _config.get("api", {})
-API_URL = API_CONFIG.get("url", "https://zne-website.vercel.app/api/commands")
+API_URL = API_CONFIG.get("url", "https://zne.breed.rip/api/commands")
 API_SECRET = API_CONFIG.get("secret", "")
 
 
