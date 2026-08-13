@@ -16,14 +16,14 @@ def fake_giveaway(prize: str):
                 discord.ui.Button(
                     style=discord.ButtonStyle.success,
                     label="participate",
-                    custom_id="cc48a5731ba6493a9af170e49ebb42d8",
+                    custom_id="enter_giveaway_button",
                 ),
             ),
             accent_colour=discord.Colour(16777215),
         )
 
         async def interaction_check(self, interaction: discord.Interaction) -> bool:
-            if interaction.data.get("custom_id") == "cc48a5731ba6493a9af170e49ebb42d8":
+            if interaction.data.get("custom_id") == "enter_giveaway_button":
                 await interaction.response.defer()
                 
                 user_mention = interaction.user.mention

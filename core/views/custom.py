@@ -24,7 +24,7 @@ class PresetManagementView(discord.ui.LayoutView):
             accessory=discord.ui.Button(
                 style=discord.ButtonStyle.secondary,
                 label="create",
-                custom_id="1f2bbba5b6594119cb456b88e6f11558",
+                custom_id="create_preset",
             ),
         ),
         discord.ui.Section(
@@ -32,7 +32,7 @@ class PresetManagementView(discord.ui.LayoutView):
             accessory=discord.ui.Button(
                 style=discord.ButtonStyle.secondary,
                 label="list",
-                custom_id="b0cfd6a580384e2fe661038cf4313802",
+                custom_id="list_preset",
             ),
         ),
         discord.ui.Section(
@@ -40,7 +40,7 @@ class PresetManagementView(discord.ui.LayoutView):
             accessory=discord.ui.Button(
                 style=discord.ButtonStyle.secondary,
                 label="delete",
-                custom_id="ddd0ad568aeb431b844fc0d7d945dde1",
+                custom_id="delete_preset",
             ),
         ),
     )
@@ -49,7 +49,7 @@ class PresetManagementView(discord.ui.LayoutView):
         cid = interaction.data.get("custom_id")
         uid = str(interaction.user.id)
 
-        if cid == "1f2bbba5b6594119cb456b88e6f11558":
+        if cid == "create_preset":
             presets = await get_user_presets(uid)
             if len(presets) >= 5:
                 await interaction.response.deny("You can only have up to 5 presets!", ephemeral=True)
@@ -70,7 +70,7 @@ class PresetManagementView(discord.ui.LayoutView):
             await interaction.response.send_modal(CreatePresetModal())
             return False
 
-        if cid == "b0cfd6a580384e2fe661038cf4313802":
+        if cid == "list_preset":
             presets = await get_user_presets(uid)
             if not presets:
                 await interaction.response.deny("You have no presets.", ephemeral=True)
@@ -108,7 +108,7 @@ class PresetManagementView(discord.ui.LayoutView):
             await interaction.response.send_message(view=DynamicListView(), ephemeral=True)
             return False
 
-        if cid == "ddd0ad568aeb431b844fc0d7d945dde1":
+        if cid == "delete_preset":
             presets = await get_user_presets(uid)
             if not presets:
                 await interaction.response.deny("You have no presets to delete.", ephemeral=True)
