@@ -53,8 +53,6 @@ class SpamButton(discord.ui.LayoutView):
 
             return False
 
-
-# Dynamic factory for custom spam button
 def custom_spam_panel(user_id: int, message: str):
     class CustomSpamPanel(discord.ui.LayoutView):
         def __init__(self):

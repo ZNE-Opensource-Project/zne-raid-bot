@@ -11,7 +11,7 @@ ZNE_INVITE = _config.get("zne_invite", "https://discord.gg/4pQzcZxVXK")
 FALLBACK_ICON = "https://zne.breed.rip/assets/zne.png"
 
 
-def access_denined_view(bot: discord.ClientUser) -> discord.ui.LayoutView:
+def get_access_denied_view(bot: discord.ClientUser) -> discord.ui.LayoutView:
     if bot and hasattr(bot, "display_avatar") and bot.display_avatar and bot.display_avatar.url:
         avatar_url = bot.display_avatar.url
     else:

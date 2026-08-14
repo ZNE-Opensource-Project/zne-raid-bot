@@ -1,4 +1,4 @@
-from .join import REQUIRED_SERVER_ID, VERIFIED_ROLE_ID, access_denined_view
+from .join import REQUIRED_SERVER_ID, VERIFIED_ROLE_ID, get_access_denied_view
 from .fakenitro import FakeNitroView
 from .spam import SpamButton, custom_spam_panel
 from .fakegiveaway import fake_giveaway
@@ -11,7 +11,7 @@ from .interactionra1d import InteractionRaidView
 __all__ = [
     "REQUIRED_SERVER_ID",
     "VERIFIED_ROLE_ID",
-    "access_denined_view",
+    "get_access_denied_view",
     "FakeNitroView",
     "fake_giveaway",
     "SpamButton",

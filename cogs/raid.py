@@ -8,7 +8,7 @@ from discord.ext import commands
 
 from core.utils.helpers import (
     log_command,
-    ZNE_INVITE, # Import ZNE_INVITE from helpers
+    ZNE_INVITE,
 )
 
 from core.views import (
