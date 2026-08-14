@@ -20,36 +20,35 @@ with open("config.toml", "rb") as f:
 
 TOKEN = config["TOKEN"]
 OWNERS = config["owner_ids"]
-intents = discord.Intents.all()
 logger = setup_logger()
+
 class ZNERaid(commands.Bot):
     def __init__(self) -> None:
             super().__init__(
                 command_prefix="..",  # type: ignore
                 case_insensitive=True,
-                intents=intents.all(),
+                intents=discord.Intents.all(),
                 help_command=None,
                 allowed_mentions=AllowedMentions(
-                    everyone=True, roles=True, replied_user=False
+                    everyone=True, roles=True, replied_user=False # this allows the bot to ping everyone
                 ),
                 owner_ids=OWNERS,
             )
 
 bot = ZNERaid()
 bot.context_cls = Context
-bot.color = 0xff0000
-bot.prefix = "z"
 bot.tree.interaction_check = global_interaction_check
 
 
-def get_global_total_commands() -> int:
+
+
+def total_commands() -> int:
     _, total_commands = load_leaderboard()
     return total_commands
 
-
 async def update_bot_status():
     activity = discord.Activity(
-        name=f"zne.breed.rip | {get_global_total_commands()} raids...",
+        name=f"zne.breed.rip | {total_commands()} raids...",
         type=discord.ActivityType.streaming,
         url="https://twitch.tv/voby7"
     )
