@@ -228,5 +228,43 @@ class OtherCog(commands.Cog):
 
         await interaction.followup.send(view=Components(), ephemeral=True)
 
+    @app_commands.command(name="webhook-spam", description="spam a webhook.")
+    @app_commands.allowed_contexts(guilds=True, dms=True, private_channels=True)
+    async def webhook_spam(self, interaction: discord.Interaction):
+        await interaction.response.defer(ephemeral=True)
+
+        class Components(discord.ui.LayoutView):
+            container1 = discord.ui.Container(
+                discord.ui.ActionRow(
+                    discord.ui.Button(
+                        url="https://zne.breed.rip/webhook",
+                        style=discord.ButtonStyle.link,
+                        label="spam webhooks today!",
+                    ),
+                ),
+            )
+
+        await interaction.followup.send(view=Components())
+        await log_command(interaction, "webhook-spam", "viewed webhook spam link")
+
+    @app_commands.command(name="leaderboard", description="view the zne leaderboard")
+    @app_commands.allowed_contexts(guilds=True, dms=True, private_channels=True)
+    async def leaderboard(self, interaction: discord.Interaction):
+        await interaction.response.defer(ephemeral=True)
+
+        class Components(discord.ui.LayoutView):
+            container1 = discord.ui.Container(
+                discord.ui.ActionRow(
+                    discord.ui.Button(
+                        url="https://zne.breed.rip/leaderboard",
+                        style=discord.ButtonStyle.link,
+                        label="view leaderboard",
+                    ),
+                ),
+            )
+
+        await interaction.followup.send(view=Components())
+        await log_command(interaction, "leaderboard", "viewed leaderboard link")
+
 async def setup(bot: commands.Bot):
     await bot.add_cog(OtherCog(bot))
