@@ -62,8 +62,9 @@ def custom_spam_panel(user_id: int, message: str):
             super().__init__(timeout=None)
             self.custom_message = message
 
+        preview = message if len(message) <= 60 else message[:60] + "..."
         container1 = discord.ui.Container(
-        discord.ui.TextDisplay(content=f"# PRESS BUTTON TO START SPAM!\n-# you are spamming the following message:\n```{message}```"),
+        discord.ui.TextDisplay(content=f"# PRESS BUTTON TO START SPAM!\n-# you are spamming the following message:\n```{preview}```"),
             discord.ui.ActionRow(
                     discord.ui.Button(
                         style=discord.ButtonStyle.secondary,
@@ -117,7 +118,7 @@ def custom_spam_panel(user_id: int, message: str):
 
 
 def multiplespam_panel(messages: list[str]):
-    display = "\n".join(f"```{m}```" for m in messages)
+    display = "\n".join(f"```{m if len(m) <= 60 else m[:60] + '...'}```" for m in messages)
 
     class MultipleSpamPanel(discord.ui.LayoutView):
         def __init__(self):
