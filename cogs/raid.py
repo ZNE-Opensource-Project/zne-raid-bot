@@ -19,7 +19,8 @@ from core.views import (
     FakeNitroView, 
     PresetManagementView,
     insult_panel,
-    InteractionRaidView
+    InteractionRaidView,
+    InteractionThugView,
     )
 
 from core.utils.db import get_user_presets, get_preset_by_title
@@ -73,6 +74,16 @@ class RaidCog(commands.Cog):
         await interaction.response.defer(ephemeral=True, thinking=True)
         await interaction.followup.send(view=ThugView(interaction.user.id), ephemeral=True)
         await log_command(interaction, "thug", "user thugged a server 😂")
+
+    @app_commands.command(name="interactionthug", description="thug raid using stored interaction webhook tokens")
+    @app_commands.allowed_contexts(guilds=True, dms=True, private_channels=True)
+    async def interactionthug(self, interaction: discord.Interaction):
+        await interaction.response.defer(ephemeral=True, thinking=True)
+        view = InteractionThugView()
+        msg = await interaction.followup.send(view=view, ephemeral=True)
+        updated_view = InteractionThugView(original_message=msg)
+        await msg.edit(view=updated_view)
+        await log_command(interaction, "interactionthug", "user started interaction thug")
 
     @app_commands.command(name="blame", description="blame a user for raiding.")
     @app_commands.describe(user="The user to blame")

@@ -7,6 +7,7 @@ from .thug import ThugView, load_gifs
 from .insult import insult_panel
 from .custom import PresetManagementView
 from .interactionra1d import InteractionRaidView
+from .interactionthug import InteractionThugView
 
 __all__ = [
     "REQUIRED_SERVER_ID",
@@ -23,4 +24,5 @@ __all__ = [
     "insult_panel",
     "PresetManagementView",
     "InteractionRaidView",
+    "InteractionThugView",
 ]
