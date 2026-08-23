@@ -1,7 +1,9 @@
+import os
 import discord
 import tomllib
 
-with open("config.toml", "rb") as f:
+_config_path = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), "config.toml")
+with open(_config_path, "rb") as f:
     _config = tomllib.load(f)
 
 REQUIRED_SERVER_ID = _config.get("server", {}).get("main_server", _config.get("main_server", 0))

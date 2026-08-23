@@ -1,5 +1,6 @@
 import asyncio
 import io
+import os
 import random
 import aiohttp
 import discord
@@ -9,7 +10,8 @@ from core.utils.helpers import ZNE_INVITE
 from core.utils.db import get_global_default_message
 from core.utils.helpers import send_message_http
 
-with open("config.toml", "rb") as f:
+_config_path = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), "config.toml")
+with open(_config_path, "rb") as f:
     _config = tomllib.load(f)
 DEFAULT_BUTTON_MESSAGE = _config["messages"]["og_msg"]
 

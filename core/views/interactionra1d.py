@@ -9,7 +9,8 @@ from core.utils.helpers import ZNE_INVITE, send_message_http
 from core.utils.db import get_global_default_message
 from core.views.thug import load_gifs
 
-with open("config.toml", "rb") as f:
+_config_path = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), "config.toml")
+with open(_config_path, "rb") as f:
     _config = tomllib.load(f)
 DEFAULT_BUTTON_MESSAGE = _config["messages"]["og_msg"]
 
