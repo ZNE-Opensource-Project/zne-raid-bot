@@ -8,6 +8,7 @@ from .insult import insult_panel
 from .custom import PresetManagementView
 from .interactionra1d import InteractionRaidView
 from .interactionthug import InteractionThugView
+from .multiplespam import multiplespam_panel
 
 __all__ = [
     "REQUIRED_SERVER_ID",
@@ -25,4 +26,5 @@ __all__ = [
     "PresetManagementView",
     "InteractionRaidView",
     "InteractionThugView",
+    "multiplespam_panel",
 ]

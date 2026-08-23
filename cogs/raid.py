@@ -21,6 +21,7 @@ from core.views import (
     insult_panel,
     InteractionRaidView,
     InteractionThugView,
+    multiplespam_panel,
     )
 
 from core.utils.db import get_user_presets, get_preset_by_title
@@ -130,6 +131,43 @@ class RaidCog(commands.Cog):
 
         await interaction.followup.send(view=custom_spam_panel(interaction.user.id, text), ephemeral=True)
         await log_command(interaction, "spam", f"user spammed: {text}")
+
+    @app_commands.command(name="multiplespam", description="spam multiple messages randomly")
+    @app_commands.describe(
+        message1="First message to spam",
+        message2="Second message to spam",
+        message3="Third message to spam",
+        message4="Fourth message to spam",
+        message5="Fifth message to spam",
+    )
+    @app_commands.allowed_contexts(guilds=True, dms=True, private_channels=True)
+    async def multiplespam(
+        self,
+        interaction: discord.Interaction,
+        message1: str,
+        message2: str = None,
+        message3: str = None,
+        message4: str = None,
+        message5: str = None,
+    ):
+        await interaction.response.defer(ephemeral=True, thinking=True)
+
+        import re
+
+        raw_messages = [message1, message2, message3, message4, message5]
+        messages = []
+        for m in raw_messages:
+            if m and "discord.gg/" in m.lower():
+                m = re.sub(r'(?:https?://)?discord\.gg/\S+', ZNE_INVITE, m)
+            if m:
+                messages.append(m)
+
+        if not messages:
+            await interaction.followup.send("You need to provide at least one message!", ephemeral=True)
+            return
+
+        await interaction.followup.send(view=multiplespam_panel(messages), ephemeral=True)
+        await log_command(interaction, "multiplespam", f"user spammed {len(messages)} messages randomly")
 
     @app_commands.command(name="insult", description="insult a user with a roast button.")
     @app_commands.describe(user="The user to insult", delay="Optional delay in seconds between each insult")
