@@ -35,7 +35,7 @@
 ```bash
 # Clone the repo
 git clone https://github.com/ZNE-Opensource-Project/zne-raid-bot.git
-cd ZNERaid
+cd zne-raid-bot
 
 # Create a virtual environment (standard venv)
 python -m venv .venv
