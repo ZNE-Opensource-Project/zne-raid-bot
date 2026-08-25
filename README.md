@@ -29,15 +29,16 @@
 ### Prerequisites
 
 - [Python 3.10+](https://www.python.org/)
+- [You're Brain](https://zne.breed.rip/)
 
 ### Setup
 
 ```bash
 # Clone the repo
-git clone https://github.com/ZNE-Opensource-Project/zne-raid-bot.git
-cd zne-raid-bot
+git clone https://github.com/ZNE-Opensource-Project/zne-raid-bot.git ZNE/Raid-Bot
+cd ZNE/Raid-Bot
 
-# Create a virtual environment (standard venv)
+# Create a virtual environment (standard venv)[OPTIONAL]
 python -m venv .venv
 
 # On Windows (PowerShell)
